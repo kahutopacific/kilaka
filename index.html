@@ -318,6 +318,7 @@ body{font-family:'Outfit',sans-serif;background:#F7F6F3;color:#1a1a1a}
   <div class="quick-bar">
     <button class="qk" onclick="qSend('What is KBYD?')">What is KBYD?</button>
     <button class="qk" onclick="qSend('Na cava na KBYD?')">Na cava na KBYD?</button>
+    <button class="qk" onclick="qSend('KBYD kaa cheez hai?')">KBYD kaa cheez hai?</button>
     <button class="qk" onclick="qSend('What is GPR?')">What is GPR?</button>
     <button class="qk hl" onclick="qSend('I want a free site risk score')">Site Risk Score</button>
     <button class="qk hl" onclick="qSend('Calculate my strike cost')">Strike Calculator</button>
@@ -347,6 +348,7 @@ body{font-family:'Outfit',sans-serif;background:#F7F6F3;color:#1a1a1a}
     <div class="fq" onclick="this.classList.toggle('open')"><div class="fq-q">What aerial survey services does Kahuto offer?</div><div class="fq-a">Kahuto operates a DJI M300 RTK drone equipped with Zenmuse L2 LiDAR and a Zenmuse P1 (45MP) camera. We deliver topographic surveys, volumetric analysis, corridor mapping, flood modelling, forestry analysis, and high-resolution orthophotos.</div></div>
     <div class="fq" onclick="this.classList.toggle('open')"><div class="fq-q">What is the Moana Data Service?</div><div class="fq-a">Moana Data Service is an ADB-backed geospatial data platform hosted on Koordinates. It provides Pacific Island nations with accessible, high-quality geospatial data for climate resilience, infrastructure planning, and disaster risk management.</div></div>
     <div class="fq" onclick="this.classList.toggle('open')"><div class="fq-q">Where does Kahuto operate?</div><div class="fq-a">Kahuto Pacific operates in Fiji and Solomon Islands. Our team includes DBYD-certified utility locators, PhD-qualified GPR specialists, and experienced field surveyors. Call 944 3226 or email survey@kahutopacific.com.</div></div>
+    <div class="fq" onclick="this.classList.toggle('open')"><div class="fq-q">KBYD kaa cheez hai?</div><div class="fq-a">KBYD matlab "Mo Kila Ni O Sebera Ni Keli Keli" — zameen khodne se pehle pata karo ki andar kaa hai. Fiji me abhi koi system nahi hai underground pipe aur cable ke baare me jaane ke liye. Kahuto Pacific ii kaam kar raha hai — GPR machine se zameen ke andar sab kuch detect kare hai, bina khode. Ek baar utility pe strike lage to FJD 20,000 se 150,000+ tak ka nuksan ho sake hai.</div></div>
     <div class="fq" onclick="this.classList.toggle('open')"><div class="fq-q">Na cava na KBYD?</div><div class="fq-a">Na KBYD se "Mo Kila Ni O Sebera Ni Keli Keli" e dua na porokaramu me qarauni na veika sa biu e loma ni qele — na wai pipe, na waqa ni livaliva, kei na cables — ni bera ni keli. E vakarautaki taki mai na Kahuto Pacific me baleta na nodra savasava kei na nodra maroroi na lewe ni vanua.</div></div>
   </div>
 </div>
@@ -467,7 +469,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showScr(t.dataset.s)));
   const ci=document.getElementById('cin');
   ci.addEventListener('input',()=>{document.getElementById('sendB').disabled=!ci.value.trim();ci.style.height='auto';ci.style.height=Math.min(ci.scrollHeight,100)+'px'});
-  setTimeout(()=>addBot("Bula! I'm Kilaka, Kahuto's AI agent for all your surveying and geospatial intelligence needs. Ask me anything — in English or iTaukei.\n\nTap a button below to get started, or just type your question."),500);
+  setTimeout(()=>addBot("Bula! I'm Kilaka, Kahuto's AI agent for all your surveying and geospatial intelligence needs. Ask me anything — in English, iTaukei, or Fiji Hindi!\n\nTap a button below to get started, or just type your question."),500);
 });
 
 function updEvBnr(){}
