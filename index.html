@@ -481,7 +481,11 @@ function drawSig(x,px,py,s){
   x.fillStyle='#0F2337';x.font='bold 13px "Plus Jakarta Sans",sans-serif';x.textAlign='center';x.fillText(s.n,px,py+32);
   x.fillStyle='#8A8A8A';x.font='11px "Plus Jakarta Sans",sans-serif';x.fillText(s.t,px,py+48);x.fillText(s.o,px,py+63);
 }
-function dlCert(){const c=document.getElementById('certC'),a=document.createElement('a');a.download='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';a.href=c.toDataURL('image/png');a.click()}
+function dlCert(){
+  const c=document.getElementById('certC');
+  const fn='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';
+  savCanv(c,fn);
+}
 
 // Photo Booth
 function doPhoto(e){
@@ -501,7 +505,7 @@ function doPhoto(e){
     };pLogo.onerror=()=>{document.getElementById('upZone').style.display='none';document.getElementById('pcw').style.display='block';document.getElementById('pBtns').style.display='flex'};pLogo.src=KAHUTO_LOGO;
   };img.src=ev.target.result};rd.readAsDataURL(f);
 }
-function dlPhoto(){const c=document.getElementById('pCanvas'),a=document.createElement('a');a.download='KBYD_Photo.png';a.href=c.toDataURL('image/png');a.click()}
+function dlPhoto(){savCanv(document.getElementById('pCanvas'),'KBYD_Photo.png')}
 function shPhoto(){const c=document.getElementById('pCanvas');c.toBlob(async b=>{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File([b],'t.png',{type:'image/png'})]})){try{await navigator.share({title:'KBYD',text:'#KBYD #KahutoPacific',files:[new File([b],'KBYD_Photo.png',{type:'image/png'})]})}catch(e){dlPhoto()}}else dlPhoto()})}
 
 // Share
@@ -521,6 +525,31 @@ function confetti(){
   const cols=['#D4600A','#0F2337','#E8C96A','#25D366','#E8731F','#FFF'];
   for(let i=0;i<50;i++){const p=document.createElement('div');p.className='confetti';p.style.left=Math.random()*100+'%';p.style.background=cols[~~(Math.random()*cols.length)];p.style.animationDelay=Math.random()*2+'s';p.style.animationDuration=(2+Math.random()*2)+'s';p.style.borderRadius=Math.random()>.5?'50%':'2px';p.style.width=(6+Math.random()*8)+'px';p.style.height=(6+Math.random()*8)+'px';c.appendChild(p)}
   setTimeout(()=>c.innerHTML='',5e3);
+}
+
+function savCanv(canvas,filename){
+  canvas.toBlob(function(blob){
+    var isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+    var isAndroid=/Android/i.test(navigator.userAgent);
+    if(isIOS&&navigator.share){
+      var file=new File([blob],filename,{type:'image/png'});
+      navigator.share({files:[file]}).catch(function(){});
+    }else if(isAndroid){
+      blobDl(blob,filename);
+    }else{
+      blobDl(blob,filename);
+    }
+  },'image/png');
+}
+function blobDl(blob,filename){
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url)},1000);
 }
 </script>
 </body>
