@@ -481,16 +481,7 @@ function drawSig(x,px,py,s){
   x.fillStyle='#0F2337';x.font='bold 13px "Plus Jakarta Sans",sans-serif';x.textAlign='center';x.fillText(s.n,px,py+32);
   x.fillStyle='#8A8A8A';x.font='11px "Plus Jakarta Sans",sans-serif';x.fillText(s.t,px,py+48);x.fillText(s.o,px,py+63);
 }
-function dlCert(){
-  const c=document.getElementById('certC');
-  const a=document.createElement('a');
-  a.download='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';
-  a.href=c.toDataURL('image/png');
-  a.style.display='none';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(()=>document.body.removeChild(a),100);
-}
+function dlCert(){const c=document.getElementById('certC'),a=document.createElement('a');a.download='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';a.href=c.toDataURL('image/png');a.click()}
 
 // Photo Booth
 function doPhoto(e){
@@ -510,16 +501,7 @@ function doPhoto(e){
     };pLogo.onerror=()=>{document.getElementById('upZone').style.display='none';document.getElementById('pcw').style.display='block';document.getElementById('pBtns').style.display='flex'};pLogo.src=KAHUTO_LOGO;
   };img.src=ev.target.result};rd.readAsDataURL(f);
 }
-function dlPhoto(){
-  const c=document.getElementById('pCanvas');
-  const a=document.createElement('a');
-  a.download='KBYD_Photo.png';
-  a.href=c.toDataURL('image/png');
-  a.style.display='none';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(()=>document.body.removeChild(a),100);
-}
+function dlPhoto(){const c=document.getElementById('pCanvas'),a=document.createElement('a');a.download='KBYD_Photo.png';a.href=c.toDataURL('image/png');a.click()}
 function shPhoto(){const c=document.getElementById('pCanvas');c.toBlob(async b=>{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File([b],'t.png',{type:'image/png'})]})){try{await navigator.share({title:'KBYD',text:'#KBYD #KahutoPacific',files:[new File([b],'KBYD_Photo.png',{type:'image/png'})]})}catch(e){dlPhoto()}}else dlPhoto()})}
 
 // Share
