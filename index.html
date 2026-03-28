@@ -104,7 +104,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:#08111c;color:#fff}
 .qk{flex:none;padding:7px 14px;border-radius:18px;border:1.5px solid var(--navy);background:transparent;color:var(--navy);font-size:11px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;white-space:nowrap}
 .qk:active{background:var(--navy);color:#fff}
 .input-row{display:flex;padding:8px 12px;gap:8px;background:#fff;border-top:1px solid rgba(0,0,0,0.06);align-items:flex-end;flex-shrink:0}
-.chat-in{flex:1;border:1.5px solid rgba(0,0,0,0.1);border-radius:22px;padding:10px 16px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:none;max-height:100px;line-height:1.4;background:var(--surface-alt)}
+.chat-in{flex:1;border:1.5px solid rgba(0,0,0,0.1);border-radius:22px;padding:10px 16px;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:none;max-height:100px;line-height:1.4;background:var(--surface-alt)}
 .chat-in:focus{border-color:var(--navy);background:#fff}
 .ib{width:38px;height:38px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .ib svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2}
@@ -375,8 +375,8 @@ function goHome(){
 function chatWith(msg){openScr('chat');setTimeout(()=>qSend(msg),500)}
 
 // Chat
-function addBot(t){lastBotMsg=t;const f=document.getElementById('feed'),d=document.createElement('div');d.className='bubble b-bot';d.innerHTML=t.replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank">$1</a>').replace(/(survey@kahutopacific\.com)/g,'<a href="mailto:$1">$1</a>').replace(/(info@kahutopacific\.com)/g,'<a href="mailto:$1">$1</a>').replace(/(944 3226)/g,'<a href="tel:9443226">$1</a>');f.appendChild(d);f.scrollTop=f.scrollHeight}
-function addUsr(t){const f=document.getElementById('feed'),d=document.createElement('div');d.className='bubble b-user';d.textContent=t;f.appendChild(d);f.scrollTop=f.scrollHeight}
+function addBot(t){lastBotMsg=t;const f=document.getElementById('feed'),d=document.createElement('div');d.className='bubble b-bot';d.innerHTML=t.replace(/\n/g,'<br>').replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank">$1</a>').replace(/(survey@kahutopacific\.com)/g,'<a href="mailto:$1">$1</a>').replace(/(info@kahutopacific\.com)/g,'<a href="mailto:$1">$1</a>').replace(/(944 3226)/g,'<a href="tel:9443226">$1</a>');f.appendChild(d);setTimeout(()=>{f.scrollTop=f.scrollHeight;d.scrollIntoView({behavior:'smooth',block:'end'})},50)}
+function addUsr(t){const f=document.getElementById('feed'),d=document.createElement('div');d.className='bubble b-user';d.textContent=t;f.appendChild(d);setTimeout(()=>{f.scrollTop=f.scrollHeight},50)}
 function qSend(t){document.getElementById('cin').value=t;document.getElementById('sendB').disabled=false;send()}
 async function send(){
   const ci=document.getElementById('cin'),t=ci.value.trim();if(!t)return;
@@ -423,7 +423,9 @@ END:VCARD`;
   const blob=new Blob([vcard],{type:'text/vcard'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url;a.download='Kahuto_Pacific.vcf';a.click();
+  a.href=url;a.download='Kahuto_Pacific.vcf';a.style.display='none';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>document.body.removeChild(a),100);
   URL.revokeObjectURL(url);
 }
 
@@ -479,7 +481,16 @@ function drawSig(x,px,py,s){
   x.fillStyle='#0F2337';x.font='bold 13px "Plus Jakarta Sans",sans-serif';x.textAlign='center';x.fillText(s.n,px,py+32);
   x.fillStyle='#8A8A8A';x.font='11px "Plus Jakarta Sans",sans-serif';x.fillText(s.t,px,py+48);x.fillText(s.o,px,py+63);
 }
-function dlCert(){const c=document.getElementById('certC'),a=document.createElement('a');a.download='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';a.href=c.toDataURL('image/png');a.click()}
+function dlCert(){
+  const c=document.getElementById('certC');
+  const a=document.createElement('a');
+  a.download='KBYD_Certificate_'+document.getElementById('cName').value.replace(/\s+/g,'_')+'.png';
+  a.href=c.toDataURL('image/png');
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>document.body.removeChild(a),100);
+}
 
 // Photo Booth
 function doPhoto(e){
@@ -499,8 +510,17 @@ function doPhoto(e){
     };pLogo.onerror=()=>{document.getElementById('upZone').style.display='none';document.getElementById('pcw').style.display='block';document.getElementById('pBtns').style.display='flex'};pLogo.src=KAHUTO_LOGO;
   };img.src=ev.target.result};rd.readAsDataURL(f);
 }
-function dlPhoto(){const c=document.getElementById('pCanvas'),a=document.createElement('a');a.download='KBYD_Photo.png';a.href=c.toDataURL('image/png');a.click()}
-function shPhoto(){const c=document.getElementById('pCanvas');c.toBlob(async b=>{if(navigator.share&&navigator.canShare){try{await navigator.share({title:'KBYD',text:'#KBYD #KahutoPacific',files:[new File([b],'KBYD_Photo.png',{type:'image/png'})]})}catch(e){dlPhoto()}}else dlPhoto()})}
+function dlPhoto(){
+  const c=document.getElementById('pCanvas');
+  const a=document.createElement('a');
+  a.download='KBYD_Photo.png';
+  a.href=c.toDataURL('image/png');
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>document.body.removeChild(a),100);
+}
+function shPhoto(){const c=document.getElementById('pCanvas');c.toBlob(async b=>{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[new File([b],'t.png',{type:'image/png'})]})){try{await navigator.share({title:'KBYD',text:'#KBYD #KahutoPacific',files:[new File([b],'KBYD_Photo.png',{type:'image/png'})]})}catch(e){dlPhoto()}}else dlPhoto()})}
 
 // Share
 function showShare(){document.getElementById('shareOv').classList.add('on')}
