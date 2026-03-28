@@ -458,8 +458,8 @@ function drawCert(logo,mLogo,nm,og,ev){
   const nw=x.measureText(nm).width;x.fillStyle='#E8C96A';x.fillRect(W/2-nw/2-20,338,nw+40,2);
   if(og){x.fillStyle='#5C5C5C';x.font='17px "Plus Jakarta Sans",sans-serif';x.fillText(og,W/2,368)}
   const bY=og?408:388;x.fillStyle='#1a1a1a';x.font='14px "Plus Jakarta Sans",sans-serif';
-  x.fillText('attended the Know Before You Dig (KBYD) Talanoa Evening',W/2,bY);
-  x.fillText('organised by Kahuto Pacific Limited and Moana Data Services.',W/2,bY+22);
+  x.textAlign='left';x.font='14px "Plus Jakarta Sans",sans-serif';var t1='attended the ';var w1=x.measureText(t1).width;x.font='bold italic 14px "Plus Jakarta Sans",sans-serif';var t2='Know Before You Dig';var w2=x.measureText(t2).width;x.font='14px "Plus Jakarta Sans",sans-serif';var t3=' Talanoa Evening';var w3=x.measureText(t3).width;var sx=W/2-(w1+w2+w3)/2;x.fillText(t1,sx,bY);x.font='bold italic 14px "Plus Jakarta Sans",sans-serif';x.fillText(t2,sx+w1,bY);x.font='14px "Plus Jakarta Sans",sans-serif';x.fillText(t3,sx+w1+w2,bY);x.textAlign='center';
+  x.fillText('organised by Kahuto Pacific Limited.',W/2,bY+22);
   x.fillStyle='#D4600A';x.font='italic 16px Georgia,serif';x.fillText('"Mo Kila Ni O Sebera Ni Keli Keli" — Know Before You Dig',W/2,bY+58);
   const sY=565,isN=ev==='nadi';
   if(isN){[200,600,1000].forEach((px,i)=>drawSig(x,px,sY,[{i:'CS',n:'Christopher Saili',t:'Managing Director',o:'Kahuto Pacific Limited'},{i:'NS',n:'Dr. Nikhil Singh',t:'Director of Operations & Strategy',o:'Kahuto Pacific Limited'},{i:'NB',n:'Neville Benson',t:'Managing Director',o:'BlueSpatial Australia'}][i]))}
